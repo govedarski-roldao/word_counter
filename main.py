@@ -1,5 +1,49 @@
 from tkinter import *
 
+running = True
+
+
+def start_counting():
+    global running
+    reset_counter()
+    running = True
+    update_timer()
+
+
+def reset_counter():
+    time_counter.config(text="Time: 60:00")
+    text_field.delete("1.0", "end-1c")
+
+
+def update_timer():
+    global running
+    global time_left
+    if running:
+        if time_left > 0:
+            minutes, seconds = divmod(time_left, 60)
+            time_counter.config(text=f"Time: {minutes:02}:{seconds:02}")  # Update the label
+            time_left -= 1
+            # Call the update_timer function again after 1000ms (1 second)
+            root.after(1000, update_timer)
+            count_words()
+        else:
+            time_counter.config(text="Time's up!")
+            running = False
+
+
+def count_words():
+    text = text_field.get("1.0", "end-1c")
+    words = text.split(" ")
+    text_length = len(words)
+    if len(words) > 0 and words[len(words)]-1 == " ":
+        text_length -= 1
+
+    print(text_length)
+    print(words)
+
+
+time_left = 60
+
 # region UI
 # -----------------------    Window
 root = Tk()
@@ -24,10 +68,10 @@ record = Label(text="Record: 0", font=("Arial", 12), pady=5)
 record.grid(column=2, row=6)
 # -----------------------    Buttons
 # Button Start
-button_start = Button(text="START", anchor="center", width=10)
+button_start = Button(text="START", anchor="center", width=10, command=start_counting)
 button_start.grid(column=0, row=4, pady=(5, 5), padx=(15, 5), sticky="w")
 # Button Reset
-button_reset = Button(text="RESET", anchor="center", width=8)
+button_reset = Button(text="RESET", anchor="center", width=8, command=reset_counter)
 button_reset.grid(column=1, row=4, pady=(5, 5), padx=(0, 5), sticky="nsew")
 # Button Stop
 button_stop = Button(text="STOP", anchor="center", width=10)
