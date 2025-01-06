@@ -1,4 +1,3 @@
-from enum import verify
 from tkinter import *
 import random
 import csv
@@ -54,9 +53,9 @@ def verify_max_points(arg):
                 writer = csv.writer(file)
                 writer.writerow([arg])  # Escreve o novo valor de max_points
                 file.truncate()  # Garante que o restante do arquivo (se houver) seja apagado
-                print(f"Valor de max_points {max_points} foi gravado no arquivo.")
+                print(f"Valor de max_points {arg} foi gravado no arquivo.")
                 # Atualiza a interface (presumivelmente uma label)
-                record.config(text=f"{max_points}")
+                record.config(text=f"Record: {verify_max_points(0)}")
     except FileNotFoundError:
         # Se o arquivo não for encontrado, cria o arquivo com valor 0
         print("Arquivo não encontrado. Criando arquivo com valor inicial de 0.")
@@ -64,7 +63,7 @@ def verify_max_points(arg):
             writer = csv.writer(file)
             writer.writerow([0])  # Cria o arquivo com valor 0
         max_points = 0  # Atualiza a variável global max_points
-        record.config(text=f"{max_points}")
+        record.config(text=f"{arg}")
 
 
 def verify_winner():
@@ -122,7 +121,6 @@ def count_words():
     text = text_field.get("1.0", "end-1c")
     words = text.split(" ")
     text_length = len(words)
-    print(words)
     if len(words) >= 0:
         if words[text_length - 1] == "":
             # print(words[text_length - 2])
