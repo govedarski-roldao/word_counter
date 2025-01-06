@@ -1,7 +1,31 @@
 from tkinter import *
+import random
+
+words_game = [
+    "apple", "banana", "cat", "dog", "elephant", "flower", "garden", "house", "island", "jungle",
+    "king", "lion", "mountain", "night", "ocean", "park", "queen", "river", "sun", "tree",
+    "umbrella", "village", "water", "yellow", "zebra", "airplane", "balloon", "car", "door", "egg",
+    "fish", "guitar", "hat", "ice", "juice", "kite", "lemon", "music", "notebook", "orange",
+    "pencil", "question", "robot", "star", "table", "umbrella", "volcano", "window", "x-ray", "yarn",
+    "zebra", "apple", "book", "candy", "dog", "evening", "friend", "gift", "happy", "interesting",
+    "jump", "kind", "learn", "moon", "nice", "open", "quiet", "rest", "smile", "talk", "understanding",
+    "victory", "work", "exam", "energy", "health", "laugh", "magic", "network", "option", "present",
+    "quiet", "rainbow", "swim", "tea", "umbrella", "vacation", "wait", "exercise", "fox", "gold",
+    "house", "ice", "jungle", "key", "luck", "moment", "nice", "open", "pear", "quick", "rose",
+    "start", "tree", "unique", "voice", "wolf", "xylophone", "yellow", "zebra", "actor", "baker",
+    "coach", "doctor", "engineer", "farmer", "gardener", "historian", "inventor", "journalist", "knight",
+    "lawyer", "mechanic", "nurse", "officer", "pilot", "queen", "researcher", "singer", "teacher", "uncle",
+    "volunteer", "writer", "actress", "balloon", "cactus", "diamond", "elephant", "fireplace", "gorilla",
+    "helicopter", "iguana", "jellyfish", "kingfisher", "lighthouse", "mountain", "narwhal", "octopus", "penguin",
+    "quail", "rainbow", "snow", "turtle", "unicorn", "volcano", "whale", "x-ray", "yeti", "zigzag",
+    "artist", "banana", "cherry", "donut", "envelope", "fortune", "garage", "hat", "iguana", "jump",
+    "keychain", "lemon", "melon", "notebook", "octagon", "puzzle", "quilt", "rocket", "sandwich", "train",
+    "unicorn", "violin", "wolf", "xmas", "yarn", "zip", "actor", "bicycle", "chef", "doctor", "elephant",
+    "flamingo", "goldfish", "helmet", "internet", "jelly", "koala", "lemonade", "monster", "news", "ocean"
+]
 
 running = True
-
+time_left = 60
 
 def start_counting():
     global running
@@ -14,6 +38,9 @@ def reset_counter():
     time_counter.config(text="Time: 60:00")
     text_field.delete("1.0", "end-1c")
 
+def stop_button():
+    global running
+    running = False
 
 def update_timer():
     global running
@@ -31,18 +58,19 @@ def update_timer():
             running = False
 
 
+
 def count_words():
     text = text_field.get("1.0", "end-1c")
     words = text.split(" ")
     text_length = len(words)
-    if len(words) > 0 and words[len(words)]-1 == " ":
-        text_length -= 1
+    if len(words) > 0:
+        if words[text_length-1] == "":
+            text_length -= 1
+    current_points.config(text=f"Words written: {text_length}")
 
-    print(text_length)
-    print(words)
 
 
-time_left = 60
+
 
 # region UI
 # -----------------------    Window
@@ -74,7 +102,7 @@ button_start.grid(column=0, row=4, pady=(5, 5), padx=(15, 5), sticky="w")
 button_reset = Button(text="RESET", anchor="center", width=8, command=reset_counter)
 button_reset.grid(column=1, row=4, pady=(5, 5), padx=(0, 5), sticky="nsew")
 # Button Stop
-button_stop = Button(text="STOP", anchor="center", width=10)
+button_stop = Button(text="STOP", anchor="center", width=10, command= stop_button)
 button_stop.grid(column=2, row=4, pady=(5, 5), padx=(15, 5), sticky="e")
 # -----------------------    Entries
 # text field
