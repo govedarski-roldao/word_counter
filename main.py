@@ -2,8 +2,6 @@ from tkinter import *
 import random
 import csv
 
-from sqlalchemy import column
-
 words_game = [
     "apple", "banana", "cat", "dog", "elephant", "flower", "garden", "house", "island", "jungle",
     "king", "lion", "mountain", "night", "ocean", "park", "queen", "river", "sun", "tree",
@@ -65,7 +63,6 @@ def verify_max_points(arg):
         max_points = 0  # Atualiza a variável global max_points
         record.config(text=f"{arg}")
 
-
 def verify_winner():
     global start_points
     global max_points
@@ -79,24 +76,20 @@ def start_counting():
     update_timer()
     give_word()
 
-
 def reset_counter():
     time_counter.config(text="Time: 60:00")
     text_field.delete("1.0", "end-1c")
-
 
 def stop_button():
     global running
     running = False
     reset_counter()
 
-
 def give_word():
     global word_to_give
     global words_game
     word_to_give = random.choice(words_game)
     word_roletta.config(text=f"{word_to_give}")
-
 
 def update_timer():
     global running
@@ -114,8 +107,6 @@ def update_timer():
             running = False
             verify_winner()
 
-
-
 def count_words():
     global start_points
     text = text_field.get("1.0", "end-1c")
@@ -128,7 +119,6 @@ def count_words():
                 start_points += 1
                 give_word()
     current_points.config(text=f"Words written: {start_points}")
-
 
 # region UI
 # -----------------------    Window
