@@ -52,7 +52,7 @@ def verify_max_points(arg):
                 # Volta ao início do arquivo para reescrever
                 file.seek(0)
                 writer = csv.writer(file)
-                writer.writerow([max_points])  # Escreve o novo valor de max_points
+                writer.writerow([arg])  # Escreve o novo valor de max_points
                 file.truncate()  # Garante que o restante do arquivo (se houver) seja apagado
                 print(f"Valor de max_points {max_points} foi gravado no arquivo.")
                 # Atualiza a interface (presumivelmente uma label)
