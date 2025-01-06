@@ -77,8 +77,12 @@ def start_counting():
     give_word()
 
 def reset_counter():
-    time_counter.config(text="Time: 60:00")
+    global time_left
+    global start_points
+    time_counter.config(text="Time: 01:00")
     text_field.delete("1.0", "end-1c")
+    time_left = 60
+    start_points = 0
 
 def stop_button():
     global running
